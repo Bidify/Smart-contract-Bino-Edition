@@ -217,12 +217,11 @@ contract Bidify is ReentrancyGuard, Ownable, IERC165, ERC1155Holder {
 
     // Finish bidding immediately if a bid is made which matches or exceeds the specified Buy it now price
     if (listing.price >= listing.endingPrice && listing.endingPrice != 0) {
-      listing.endTime = block.timestamp;
-      finish(id);
+      listing.endTime = block.timestamp - 1;
+      _finish(id);
     }
   }
-
-  function finish(uint64 id) public nonReentrant {
+  function _finish(uint64 id) internal {
     require(id < _nextListing, "listing doesn't exist");
 
     Listing storage listing = _listings[id];
@@ -277,5 +276,8 @@ contract Bidify is ReentrancyGuard, Ownable, IERC165, ERC1155Holder {
     else
       IERC1155(listing.platform).safeTransferFrom(address(this), nftRecipient, listing.token, 1, "");
     emit AuctionFinished(id, nftRecipient, sellPrice);
+  }
+  function finish(uint64 id) external nonReentrant {
+    _finish(id);
   }
 }
