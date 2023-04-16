@@ -1,0 +1,778 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "time",
+						"type": "uint256"
+					}
+				],
+				"name": "AuctionExtended",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "nftRecipient",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"name": "AuctionFinished",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "bidder",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "referrer",
+						"type": "address"
+					}
+				],
+				"name": "Bid",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "creator",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "currency",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "platform",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "token",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "endingPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint8",
+						"name": "timeInDays",
+						"type": "uint8"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "lister",
+						"type": "address"
+					}
+				],
+				"name": "ListingCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					},
+					{
+						"internalType": "address",
+						"name": "referrer",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "bid",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					}
+				],
+				"name": "finish",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "getListing",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "currency",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "platform",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "token",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "price",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endingPrice",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "referrer",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "lister",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "highBidder",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "paidOut",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isERC721",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Bidify.Listing",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint64",
+						"name": "id",
+						"type": "uint64"
+					}
+				],
+				"name": "getNextBid",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "currency",
+						"type": "address"
+					}
+				],
+				"name": "getPriceUnit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "currency",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "platform",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "token",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endingPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint8",
+						"name": "timeInDays",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "isERC721",
+						"type": "bool"
+					},
+					{
+						"internalType": "address",
+						"name": "lister",
+						"type": "address"
+					}
+				],
+				"name": "list",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC1155BatchReceived",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "operator",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC1155Received",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC1155Received",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "operator",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "",
+						"type": "bytes"
+					}
+				],
+				"name": "onERC721Received",
+				"outputs": [
+					{
+						"internalType": "bytes4",
+						"name": "",
+						"type": "bytes4"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes4",
+						"name": "interfaceId",
+						"type": "bytes4"
+					}
+				],
+				"name": "supportsInterface",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"supportsInterface(bytes4)": {
+					"details": "See {IERC165-supportsInterface}."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Bidify.sol": "Bidify"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Address.sol": {
+			"keccak256": "0x56c55493b8912cb4729acd8a226a37dfb815c104cb57536a899bdaa708b45e1c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://13456b3168b87f09c352f0074f4942b07651b6c1e153860879c3ae9ae0426cb4",
+				"dweb:/ipfs/QmZnZ9FEYxGBGx1AqRSv85XZwN9pBDYJxUKQ2ydYdQcyDj"
+			]
+		},
+		"contracts/Bidify.sol": {
+			"keccak256": "0x2b61c7423ed0382eab58b3d72bad54c91baa4317e096b3b0a4cd4ae4be6d50de",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ea9bdab677a9697dd6768eaf07f2c799bc4becc5777b14ae6b1a056bb0cd29dd",
+				"dweb:/ipfs/QmarGRfyegyxoEAaLCnJpbz9gTRsAfvw3bob9XDTE1kqRK"
+			]
+		},
+		"contracts/Context.sol": {
+			"keccak256": "0x86364e60f46191128eac8ea1b7a43efef982ba3749f827e6d1f8eb16bb77f4c5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://756519f3c54cb7ae3c2f280442c2a1de8b84e500ce4dea60da458dce886479fd",
+				"dweb:/ipfs/QmPzHq3pXP4apw5AJVcCbfRXvztS8n8FBwrwxrsVtutZEu"
+			]
+		},
+		"contracts/ERC1155.sol": {
+			"keccak256": "0xb2abee375f05a8344975a27cc167bfd70fb467ef537a62894ee819973b4fdd2f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4889f1546f9e96ee9fca0d6de2660e72e6c88f5d751c05be9538c54cf4126ee5",
+				"dweb:/ipfs/QmPRtHhFYzEqLsciy3rPWA6wWf7AwGSfUf71cERjtMicwK"
+			]
+		},
+		"contracts/ERC1155Holder.sol": {
+			"keccak256": "0x708b3c9c855e18c854fb2b4660c10fe6481a4d1be8d8bbb9df7be36c63918793",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2dee05a992e6249e57a9bceb6a8be20109e89f8041575764f644f09cd743ba96",
+				"dweb:/ipfs/QmfDwN7QxsjXnhgFYAFM6C6VSqRRntLAvSQyX3f4dTrkce"
+			]
+		},
+		"contracts/ERC1155Receiver.sol": {
+			"keccak256": "0x6828d394a833d3ead12bd436014b966d752350dbf5a0cf1c91f892e7ad64df78",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ecb0fc89bedf64ed06895b5cc81294da468df41b1d522aa86035a18ff4fc0d43",
+				"dweb:/ipfs/QmVrTmyB8dy5SduiSNkRHnkHnRBsqgMSBMy7FienmFdih4"
+			]
+		},
+		"contracts/ERC165.sol": {
+			"keccak256": "0x071cfd008ed1810ddf23f56bd1ce2f0c3983bc291559067e94618547f579e1f2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a3235dc4cbf8fe1bde8426a0515c2d19205953cce2bef84e635a74b1b0140250",
+				"dweb:/ipfs/QmcLniP23L9VH3rSdoE4YnLosayZELS38z6HJCZQ3Q4Vq2"
+			]
+		},
+		"contracts/ERC165Checker.sol": {
+			"keccak256": "0xff6f2db2ca3a3a0e8986fb40ab666aa040b5718187a361b36f81e25061d49674",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://42d59033baa0e56527e43735b3da820c6d0593a1d2ddbeb551b17e68f6af8d6d",
+				"dweb:/ipfs/QmXnhoPxGheScUm8RL32qgkeLu6y9DLfWVowBnWUHovZAa"
+			]
+		},
+		"contracts/IDecimals.sol": {
+			"keccak256": "0x368707198c73e9c11912b597ffd21dca6c0d6ea5181f9f38b8e71d51b0b33ff9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b654dcda42a030ea81aa50f1bd80bc5730c84c0f2c7f1d1bffbf2e06627faff6",
+				"dweb:/ipfs/QmWifSdjuse72qbVEAfk9dFX3mkpza4sNNVHqduSK2vMxg"
+			]
+		},
+		"contracts/IERC1155.sol": {
+			"keccak256": "0x033b20cd3f4b213f92a7eb098c1672a28a80ae52baf022d68ec68de21a0dbcb5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c4781597a1f4a3e45f08a0324112b4f4111bdeb6bb6ad8460b4c8de71c0bbd9d",
+				"dweb:/ipfs/QmbwAJMiCWMpBAEHjE9ypaToYaxFp3mAC7QoMkfdXPzcKd"
+			]
+		},
+		"contracts/IERC1155MetadataURI.sol": {
+			"keccak256": "0x2891f088e01ac8857966a2b9aa1b3df73edbee27703517e121c43704dc8bd69a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://54772bcc693eabef284b6c3fbb5bf2e4bb408518d86c14560fd08aa92ba2621e",
+				"dweb:/ipfs/QmcPcjyrkRurCwxG3CTypxGdoCMLtMU3LMYUP7QimEpgZ9"
+			]
+		},
+		"contracts/IERC1155Receiver.sol": {
+			"keccak256": "0xd4ee33ce5036fe9606b7cc2ba755baa384f20b393c8f3292724d9366f7894842",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fb735843b6965636e5e119a716d5fa63f829e40b8b7199d27264c27ab5c16480",
+				"dweb:/ipfs/QmRVwTB8wLZtDVtuKZbxnRGCzmdEuG6SonJMpfwTYtxU6o"
+			]
+		},
+		"contracts/IERC165.sol": {
+			"keccak256": "0x4b730bde87afb6e627209e44f567634df0fe79a92a087f2f0f668ca111847d0e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0910c0e58420b982f9ff8722b2120299e2258d6df6d70673f01d379165107597",
+				"dweb:/ipfs/QmVAgaTBuquXAf4aVrD4BvRRqS6tSZ3N91Ah21ye6aKgih"
+			]
+		},
+		"contracts/IERC20.sol": {
+			"keccak256": "0x208a653b3c4850786f94a1fa164579a3620a56097b138f02c3eccb393c214e13",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9d73fec8ca929de836d72ee70c40e71f09c04a938231d68c934327b400602d7a",
+				"dweb:/ipfs/QmNosM3yrnQPekRJPap1wwhcdTQUdQuCmpfnfEwQvyuCiw"
+			]
+		},
+		"contracts/IERC721.sol": {
+			"keccak256": "0x2e4e91f1bd59458877b87a590b85ad5ed4c01b419f4ae3f5b05c03ebabbb391b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7857946a2bb0aa762b3ff1f9da6f5d4f2b927e277aae9cce3055babb0c94a294",
+				"dweb:/ipfs/QmdnciGX4mWMSU9LSkGKgXU41Cptm4qEo7642ShHTkF7ED"
+			]
+		},
+		"contracts/IERC721Receiver.sol": {
+			"keccak256": "0xfba81987894dbeac860ff492218a59dcf4e65183d00553339527408fc5f0a377",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9d7fa8edecf174c7c458cbd72ed8c601d08ff9ced0a1712223b9b23d0c32428f",
+				"dweb:/ipfs/Qmf1XARFR2wnQrwiP45R2m2Wec7PLQc8AmB9ZzqgVFu9DL"
+			]
+		},
+		"contracts/Ownable.sol": {
+			"keccak256": "0xe1b3ae221793e5dde61e6363114229551396dfcc61c48128e108bf5e32183f17",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://294ad9034e7577733779d0f098f3f6909c8ae62f6538b07223fae28e3c7ededb",
+				"dweb:/ipfs/QmdXHgtDQSMKXM6yrfbKwoPiKmZ5coM6JSYUERMsfAQzyh"
+			]
+		},
+		"contracts/ReentrancyGuard.sol": {
+			"keccak256": "0xbb2b2d7e6b30ccf572842828e06fec8790c01afb4cc9e32536c6ef512d26b33f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cafaf3eada272317e90d5b80211ef5168e93683434cebcac95f15d3c8ec696a5",
+				"dweb:/ipfs/QmXuT6GFC8KNZF5ZoXuaKgffLAs8zeMh7vUMT3gkjQGgpK"
+			]
+		},
+		"contracts/SafeERC20.sol": {
+			"keccak256": "0x29eb7e503f8af98e6cbaa9029c425fcbc8c98645feaa19b38e4011a7934cbc31",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5c89e481e460696dd3fcc9c9bd7d88ddd015d6cd2d8e6dfc47ec790621667875",
+				"dweb:/ipfs/QmY5oxddDXuDymFpqCZiQqVWwsKu6LxVfxE8ej2oD7LbgE"
+			]
+		}
+	},
+	"version": 1
+}

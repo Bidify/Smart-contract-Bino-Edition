@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 
-import "./ReentrancyGuard.sol";
-import "./Ownable.sol";
-import "./IDecimals.sol";
-import "./IERC20.sol";
-import "./SafeERC20.sol";
-import "./IERC721.sol";
-import "./IERC721Receiver.sol";
-import "./ERC1155.sol";
-import "./ERC1155Holder.sol";
-import "./ERC165Checker.sol";
 pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/interfaces/IERC165.sol";
+import "@openzeppelin/contracts/interfaces/IERC721.sol";
+import "@openzeppelin/contracts/interfaces/IERC721Receiver.sol";
+import "@openzeppelin/contracts/interfaces/IERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract Bidify is ReentrancyGuard, Ownable, IERC165, ERC1155Holder {
   using SafeERC20 for IERC20;
@@ -76,7 +76,7 @@ contract Bidify is ReentrancyGuard, Ownable, IERC165, ERC1155Holder {
     // This technically doesn't work with all ERC20s
     // The decimals method is optional, hence the custom interface
     // That said, it is in almost every ERC20, a requirement for this, and needed for feasible operations with wrapped coins
-    uint256 decimals = IDecimals(currency).decimals();
+    uint256 decimals = ERC20(currency).decimals();
 
     if (decimals <= DECIMAL_ACCURACY) {
       return 1;
